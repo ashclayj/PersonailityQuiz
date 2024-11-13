@@ -7,8 +7,8 @@ The light and dark side of the force guides users to through a series of questio
 Contributors 
 
 •	Ashley Johnson – Responsible for the QuizQuestion class. Handling question and answer options. 
-•	Contributor 2 – Responsible for the UserResponse class. Handling user interactions and responses. 
-•	Contributor 3 – Responsible for QuizEngine class. Handling quiz flow and recalculations. 
+•	Lukas Hamm – Responsible for the UserResponse class. Handling user interactions and responses. 
+•	Gavin Daniels – Responsible for QuizEngine class. Handling quiz flow and recalculations. 
 
 Project Aim 
 
