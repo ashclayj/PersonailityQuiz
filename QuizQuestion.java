@@ -19,6 +19,9 @@ public class QuizQuestion {
 
     // Constructor: Initializes a QuizQuestion with text, answer choices, and scores
     public QuizQuestion(String questionText, String[] answerChoices, int[] scores) {
+        if (answerChoices.length != scores.length) {
+            throw new IllegalArgumentException("Answer choices and scores must have the same length.");
+        }
         this.questionText = questionText;
         this.answerChoices = answerChoices;
         this.scores = scores;
@@ -67,6 +70,17 @@ public class QuizQuestion {
         for (int i = 0; i < answerChoices.length; i++) {
             System.out.println((i + 1) + ": " + answerChoices[i]);
         }
+    }
+    public boolean isValidChoice(int choice) {
+        return choice > 0 && choice <= answerChoices.length;
+    }
+
+    // Method: Gets the score for a given choice
+    public int getScoreForChoice(int choice) {
+        if (!isValidChoice(choice)) {
+            throw new IllegalArgumentException("Invalid choice: " + choice);
+        }
+        return scores[choice - 1]; // Subtract 1 to account for 0-based index
     }
 }
 
