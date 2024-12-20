@@ -26,6 +26,6 @@ Contributors
 •	Ashley Johnson – Responsible for the QuizQuestion class. 
 •	Lukas Hamm – Responsible for the UserResponse class. 
 •	Gavin Daniels – Responsible for QuizEngine class. 
-•	Lukas Hamn – Responsible for QuizWiz class. 
+•	Lukas Hamm & Ashley Johnson – Responsible for QuizWiz class. 
 
 
