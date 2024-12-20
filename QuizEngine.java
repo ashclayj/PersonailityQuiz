@@ -2,13 +2,14 @@ package PersonalityQuiz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class QuizEngine {
 
     private List<QuizQuestion> questions;
-    private List<UserResponse> userResponses;
+    private List UserResponse userResponse;
 
-    public QuizEngine() {
+    public QuizEngine(UserResponse userResponse) {
         this.questions = new ArrayList<>();
         this.userResponses = new ArrayList<>();
     }
@@ -18,107 +19,52 @@ public class QuizEngine {
         questions.add(question);
     }
 
-    // Add a user response
-    public void addUserResponse(UserResponse response) {
-        userResponses.add(response);
-    }
-
     // Start the quiz and manage the flow
     public void startQuiz() {
+        Scanner sc = new Scanner(System.in);
         for (QuizQuestion question : questions) {
-            System.out.println(question.getQuestionText());
-            // Assume input is handled externally and captured here.
-            String userInput = getUserInput();
-            UserResponse response = new UserResponse(question.getQuestionId(), userInput);
-            addUserResponse(response);
-        }
-    }
-
-    // Recalculate results based on user responses
-    public void calculateResults() {
-        // Implement scoring logic as needed
-        int score = 0;
-
-        for (UserResponse response : userResponses) {
-            QuizQuestion question = findQuestionById(response.getQuestionId());
-            if (question != null && question.isCorrect(response.getAnswer())) {
-                score++;
+            System.out.print("Enter your choice (1-" + question.getAnswerChoices().length + "): ");
+            int userChoice = sc.nextInt();
+            if (question.isValidChoice(userChoice)) {
+                userResponse.processAnswer(userChoice - 1, question);
+            } else {
+                System.out.println("Invalid choice. No score recorded for this question.");
             }
         }
-
-        System.out.println("Your score is: " + score + "/" + questions.size());
+        sc.close();
     }
 
-    // Helper method to find a question by ID
-    private QuizQuestion findQuestionById(int questionId) {
-        for (QuizQuestion question : questions) {
-            if (question.getQuestionId() == questionId) {
-                return question;
-            }
+    public void displayFinalScores() {
+        userResponse.displayScores();
+        int light = userResponse.getLightSide();
+        int dark = userResponse.getDarkSide();
+        if (light > dark) {
+            System.out.println("You have chosen the path of the Light Side!");
+        } else if (dark > light) {
+            System.out.println("You have chosen the path of the Dark Side!");
+        } else {
+            System.out.println("You are balanced between the Light and Dark sides.");
         }
-        return null;
-    }
-
-    // Placeholder for getting user input
-    private String getUserInput() {
-        // Replace with actual input logic, e.g., Scanner
-        return "sample answer";
     }
 
     public static void main(String[] args) {
-        QuizEngine engine = new QuizEngine();
+        UserResponse user = new UserResponse("Luke");
+        QuizEngine engine = new QuizEngine(user);
 
         // Example questions
-        QuizQuestion q1 = new QuizQuestion(1, "Landed on the Light Side", null);
-        QuizQuestion q2 = new QuizQuestion(2, "Landed on the Dark Side", null);
+        String[] answers1 = {"Help them", "Ignore them", "Harm them"};
+        int[] scores1 = {2, 0, -2};
+        QuizQuestion q1 = new QuizQuestion("You encounter an injured stranger. What do you do?", answers1, scores1);
+
+        String[] answers2 = {"Wait patiently", "Act rashly", "Seize control"};
+        int[] scores2 = {2, 0, -2};
+        QuizQuestion q2 = new QuizQuestion("Your mentor advises patience, but opportunity arises...", answers2, scores2);
 
         engine.addQuestion(q1);
         engine.addQuestion(q2);
 
         engine.startQuiz();
-        engine.calculateResults();
+        engine.displayFinalScores();
     }
 }
 
-// Mock classes for QuizQuestion and UserResponse
-class QuizQuestion {
-    private int questionId;
-    private String questionText;
-    private String correctAnswer;
-
-    public QuizQuestion(int questionId, String questionText, String correctAnswer) {
-        this.questionId = questionId;
-        this.questionText = questionText;
-        this.correctAnswer = correctAnswer;
-    }
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public String getQuestionText() {
-        return questionText;
-    }
-
-    public boolean isCorrect(String answer) {
-        return correctAnswer.equalsIgnoreCase(answer);
-    }
-}
-
-class UserResponse {
-    private int questionId;
-    private String answer;
-
-    public UserResponse(int questionId, String answer) {
-        this.questionId = questionId;
-        this.answer = answer;
-    }
-
-    public int getQuestionId() {
-        return questionId;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-}
