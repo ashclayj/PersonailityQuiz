@@ -1,16 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+*Ashley Johnson
+*Final Project 12/19/2024
+*QuizQuestion mantains questions and answers 
+*Ligt and dark side of the force 
  */
-//Ashley Johnson
-//Project Phase 2
-//Ligt and dark side of the force 
 package PersonalityQuiz;
 
-/**
- *
- * @author ashleyjohnson
- */
 public class QuizQuestion {
     // Attributes
     private String questionText; // The text of the quiz question
