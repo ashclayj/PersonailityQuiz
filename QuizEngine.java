@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Ashley Johnson & Gavin Daniels Date: 12 / 19 / 2024
+ * Final Project (QuizEngine)
+ * Manages the quiz flow 
+ */
+
 public class QuizEngine {
 
     private List<QuizQuestion> questions;
